@@ -1,32 +1,6 @@
-import test from "./test.json?raw";
-
-function getProductHTML(product, count = 0) {
-  return `
-  <div class="product" data-product-id="${product.id}" >
-    <img src="${product.images[0]}" alt="Image ${product.name}"/>
-    <p>${product.name}</p>    
-    <div class="flex itmes-center justify-between">
-    <span>Price:${product.regularPrice}</span>
-    <div>
-      <button type="button" class="disabled disabled:opacity-50 disabled:cursor-not-allowed btn-decrease bg-green-200 py-1 px-3 rounded-full text-green-800 hover:bg-green-300">-</button>
-      <span class="text-green-800 cart-count">${count === 0 ? "" : count}</span>
-      <button type="button" class="btn-increase bg-green-200 py-1 px-3 rounded-full text-green-800 hover:bg-green-300">+</button>
-    </div>
-  </div>
-</div>
-`;
-}
-
-async function getProducts() {
-  if (process.env.NODE_ENV === "development") {
-    return JSON.parse(test);
-  } else {
-    const response = await fetch(
-      "https://learnwitheunjae.dev/api/sinabro-js/ecommerce"
-    );
-    return await response.json();
-  }
-}
+import { setupProducts } from "./products";
+import { setupCounter } from "./counter";
+import { setupCart } from "./cart";
 
 function findElement(startingElement, selector) {
   let currentElement = startingElement;
@@ -39,69 +13,59 @@ function findElement(startingElement, selector) {
   return null;
 }
 
-function sumAllcounts(count) {
-  let sum = 0;
-  Object.values(count).forEach((number) => {
-    sum += number;
-  });
-  return sum;
-}
 async function main() {
-  const products = await getProducts();
-  const productMap = {};
-  products.forEach((product) => {
-    productMap[product.id] = product;
-  });
+  const { updateCount: updateProdcutCount, getProductById } =
+    await setupProducts({
+      container: document.querySelector("#products"),
+    });
 
-  const countMap = {};
+  const {
+    addProduct,
+    removeProduct,
+    updateCount: updateCartCount,
+  } = setupCart({ container: document.querySelector(".cart_items") });
+  const { increase, decrease, getTotalCount } = setupCounter();
 
-  const updateProductCount = (productId) => {
-    const productElement = document.querySelector(
-      `.product[data-product-id='${productId}']`
-    );
-    const cartCountElement = productElement.querySelector(".cart-count");
-    cartCountElement.innerHTML = countMap[productId];
-    if (countMap[productId] === 0) {
-      cartCountElement.innerHTML = "";
-    }
-  };
+  // const countMap = {};
 
-  const updateCart = () => {
-    const productIds = Object.keys(countMap);
-    document.querySelector(".cart_items").innerHTML = productIds
-      .map((productId) => {
-        const productIdCart = productMap[productId];
-        if (countMap[productId] === 0) {
-          return "";
-        }
-        return getProductHTML(productIdCart, countMap[productId]);
-      })
-      .join("");
+  // const updateCart = () => {
+  //   const productIds = Object.keys(countMap);
+  //   document.querySelector(".cart_items").innerHTML = productIds
+  //     .map((productId) => {
+  //       const productIdCart = productMap[productId];
+  //       if (countMap[productId] === 0) {
+  //         return "";
+  //       }
+  //       return getProductHTML(productIdCart, countMap[productId]);
+  //     })
+  //     .join("");
 
-    document.querySelector(".total-count").innerHTML = `${sumAllcounts(
-      countMap
-    )}`;
+  // };
+
+  const updateTotalCount = (totalCount) => {
+    document.querySelector(".total-count").innerHTML = `${totalCount}`;
   };
 
   const increaseCount = (productId) => {
-    if (countMap[productId] === undefined) {
-      countMap[productId] = 0;
+    const count = increase({ productId });
+
+    updateProdcutCount({ productId, count });
+    if (count === 1) {
+      addProduct({ product: getProductById({ productId }) });
     }
-    countMap[productId] += 1;
-    updateProductCount(productId);
-    updateCart();
+    updateCartCount({ productId, count });
+    updateTotalCount(getTotalCount());
   };
   const decreaseCount = (productId) => {
-    if (countMap[productId] === undefined) {
-      countMap[productId] = 0;
+    const count = decrease({ productId });
+
+    updateProdcutCount({ productId, count });
+    updateCartCount({ productId, count });
+    if (count === 0) {
+      removeProduct({ product: getProductById({ productId }) });
     }
-    countMap[productId] -= 1;
-    updateProductCount(productId);
-    updateCart();
+    updateTotalCount(getTotalCount());
   };
-  document.querySelector("#products").innerHTML = products
-    .map((product) => getProductHTML(product))
-    .join("");
 
   document.querySelector("#products").addEventListener("click", (e) => {
     const tagerElement = e.target;
