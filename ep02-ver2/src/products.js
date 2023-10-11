@@ -1,3 +1,4 @@
+import { findElement } from "./util";
 import test from "./test.json?raw";
 
 export function getProductElement(product, count = 0) {
@@ -30,16 +31,32 @@ async function getProducts() {
   }
 }
 
-export async function setupProducts({ container }) {
+export async function setupProducts({
+  container,
+  onDecreaseClick,
+  onIncreaseClick,
+}) {
   const products = await getProducts();
   const productMap = {};
   products.forEach((product) => {
     productMap[product.id] = product;
   });
 
-  // document.querySelector("#products").innerHTML = products
-  //   .map((product) => getProductHTML(product))
-  //   .join("");
+  container.addEventListener("click", (e) => {
+    const tagerElement = e.target;
+    const productElement = findElement(tagerElement, ".product");
+    const productId = productElement.getAttribute("data-product-id");
+    if (
+      tagerElement.matches(".btn-decrease") ||
+      tagerElement.matches(".btn-increase")
+    ) {
+      if (tagerElement.matches(".btn-decrease")) {
+        onDecreaseClick({ productId });
+      } else if (tagerElement.matches(".btn-increase")) {
+        onIncreaseClick({ productId });
+      }
+    }
+  });
 
   products.forEach((product) => {
     const productElement = getProductElement(product);
