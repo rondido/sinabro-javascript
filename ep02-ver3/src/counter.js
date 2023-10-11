@@ -1,28 +1,24 @@
 import { bindReactiveState } from "./reactivity";
 export function setupCounter() {
-  const [getCountMap, setCountMap] = bindReactiveState({
+  const countMap = bindReactiveState({
     name: "countMap",
     defaultValue: {},
   });
 
   const increase = ({ productId }) => {
-    const newCountMap = { ...getCountMap() };
-    if (newCountMap[productId] === undefined) {
-      newCountMap[productId] = 0;
+    if (countMap[productId] === undefined) {
+      countMap[productId] = 0;
     }
-    newCountMap[productId] += 1;
-    setCountMap(newCountMap);
-    return newCountMap[productId];
+    countMap[productId] += 1;
+    return countMap[productId];
   };
 
   const decrease = ({ productId }) => {
-    const newCountMap = { ...getCountMap() };
-    if (newCountMap[productId] === undefined) {
-      newCountMap[productId] = 0;
+    if (countMap[productId] === undefined) {
+      countMap[productId] = 0;
     }
-    newCountMap[productId] -= 1;
-    setCountMap(newCountMap);
-    return newCountMap[productId];
+    countMap[productId] += 1;
+    return countMap[productId];
   };
   const getTotalCount = () => {
     let count = 0;
