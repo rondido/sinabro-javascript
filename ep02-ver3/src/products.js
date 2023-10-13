@@ -11,9 +11,10 @@ export function getProductElement(product) {
   <span>Price:${product.regularPrice}</span>
   <div>
     <button type="button" class="disabled disabled:opacity-50 disabled:cursor-not-allowed btn-decrease bg-green-200 py-1 px-3 rounded-full text-green-800 hover:bg-green-300">-</button>    
-    <span class="text-green-800 cart-count" 
-    data-subscribe-to="countMap" 
-    data-subscription-path="${product.id}">
+    <span 
+      class="text-green-800 cart-count" 
+      data-subscribe-to="countMap" 
+      data-subscription-path="${product.id}">
     </span>
     <button type="button" class="btn-increase bg-green-200 py-1 px-3 rounded-full text-green-800 hover:bg-green-300">+</button>
   </div>
