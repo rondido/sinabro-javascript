@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { posts } from "./posts";
+import { posts } from "./data/posts";
 
 describe("filter method - simple", () => {
   it("gets positive numbers", () => {
