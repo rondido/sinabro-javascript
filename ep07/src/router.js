@@ -1,12 +1,7 @@
 let routes;
 
 //popstate 이벤트는 뒤로가기 이벤트임
-window.addEventListener("popstate", (e) => {
-  if (routes[pathname]) {
-    routes[pathname]();
-    return;
-  }
-});
+
 export const goto = (url, { push } = {}) => {
   const pathname = url.split("?")[0]; // "/" | "/search" | ..
   const params = Object.fromEntries(new URLSearchParams(url.split("?")[1]));
@@ -26,5 +21,11 @@ export const goto = (url, { push } = {}) => {
 
 export const start = (params) => {
   routes = params.routes;
+  window.addEventListener("popstate", (e) => {
+    if (routes[pathname]) {
+      routes[pathname]();
+      return;
+    }
+  });
   goto(location.pathname + location.search);
 };

@@ -1,5 +1,10 @@
 import { start } from "./src/router";
-import { routes } from "./src/routes";
-start({
-  routes,
-});
+import { routes, getInitialHTML } from "./src/routes";
+
+export { getInitialHTML };
+
+if (typeof window !== "undefined") {
+  start({
+    routes,
+  });
+}

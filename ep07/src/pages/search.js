@@ -1,3 +1,9 @@
+export function getInitialHTML() {
+  return `
+  <h1>Search Resuts</h1>
+    <p>searching for :</p>
+  `;
+}
 export async function renderSearch({ searchParams }) {
   document.querySelector("#app").innerHTML = `
     <h1>Search Resuts</h1>
