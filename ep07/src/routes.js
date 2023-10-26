@@ -14,5 +14,5 @@ export const routes = {
 
 export const getInitialHTML = {
   "/": getInitialHTMLForIndex,
-  search: getInitialHTMLForSearch,
+  "/search": getInitialHTMLForSearch,
 };

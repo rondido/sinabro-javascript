@@ -14,11 +14,28 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/search", (req, res) => {
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(req.query.query.toLowerCase())
+const getFilteredMovies = (query) => {
+  return movies.filter((movie) =>
+    movie.title.toLowerCase().includes(query.toLowerCase())
   );
-  res.json(filteredMovies);
+};
+
+app.get("/search", (req, res) => {
+  const filteredMovies = getFilteredMovies(req.query.query);
+  fs.readFile("index.html", (err, file) => {
+    res.send(
+      file.toString().replace(
+        "<!--app-->",
+        getInitialHTML["/search"]({
+          movies: filteredMovies,
+        })
+      )
+    );
+  });
+});
+
+app.get("/api/search", (req, res) => {
+  res.json(getFilteredMovies(req.query.query));
 });
 
 app.listen(port, () => {

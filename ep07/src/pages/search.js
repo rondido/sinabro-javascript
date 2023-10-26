@@ -1,8 +1,14 @@
-export function getInitialHTML() {
-  return `
-  <h1>Search Resuts</h1>
-    <p>searching for :</p>
-  `;
+export function getInitialHTML({ movies } = {}) {
+  if (movies) {
+    return `
+    <h1>Search Results</h1>
+    ${movies.map((movie) => `<div><p>${movie.title}</p></div>`).join("")}`;
+  } else {
+    return `
+      <h1>Search Resuts</h1>
+      <p>searching for :</p>
+    `;
+  }
 }
 export async function renderSearch({ searchParams }) {
   document.querySelector("#app").innerHTML = `
@@ -10,10 +16,12 @@ export async function renderSearch({ searchParams }) {
     <p>searching for :${searchParams.query}...</p>
   `;
   const res = await fetch(
-    `http://localhost:3000/search?query=${searchParams.query}`
+    import.meta.DEV
+      ? "http://localhost:3000"
+      : "" + `/api/search?query=${searchParams.query}`
   );
-  const movies = await res.json();
 
+  const movies = await res.json();
   document.querySelector("#app").innerHTML = `
   <h1>Search Resuts</h1>
   ${movies.map((movie) => `<div><p>${movie.title}</p></div>`).join("")}
