@@ -2,7 +2,7 @@ let routes;
 
 //popstate 이벤트는 뒤로가기 이벤트임
 
-export const goto = (url, { push } = {}) => {
+export const goto = (url, { push, initialData } = {}) => {
   const pathname = url.split("?")[0]; // "/" | "/search" | ..
   const params = Object.fromEntries(new URLSearchParams(url.split("?")[1]));
 
@@ -13,6 +13,7 @@ export const goto = (url, { push } = {}) => {
     //routers 객체가 맞는 key의 함수를 실행
     routes[pathname]({
       searchParams: params,
+      initialData,
     });
     return;
   }
@@ -27,5 +28,7 @@ export const start = (params) => {
       return;
     }
   });
-  goto(location.pathname + location.search);
+  goto(location.pathname + location.search, {
+    initialData: window.__INITIAL_DATA__,
+  });
 };

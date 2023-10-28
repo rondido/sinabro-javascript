@@ -9,7 +9,7 @@ export function getInitialHTML() {
   </form>`;
 }
 
-export function renderIndex() {
+export function renderIndex({ searchParams, initialData }) {
   document.querySelector("#app").innerHTML = getInitialHTML();
   document.body.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
