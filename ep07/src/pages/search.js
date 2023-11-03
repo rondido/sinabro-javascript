@@ -28,6 +28,7 @@ export async function renderSearch({ searchParams, initialData }) {
     );
 
     const movies = await res.json();
+    
     document.querySelector("#app").innerHTML = getInitialHTML({ movies });
   }
 
