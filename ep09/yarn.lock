@@ -19,6 +19,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"argparse@npm:^1.0.7":
+  version: 1.0.10
+  resolution: "argparse@npm:1.0.10"
+  dependencies:
+    sprintf-js: ~1.0.2
+  checksum: 7ca6e45583a28de7258e39e13d81e925cfa25d7d4aacbf806a382d3c02fcb13403a07fb8aeef949f10a7cfe4a62da0e2e807b348a5980554cc28ee573ef95945
+  languageName: node
+  linkType: hard
+
 "chalk@npm:^0.5.1":
   version: 0.5.1
   resolution: "chalk@npm:0.5.1"
@@ -39,12 +48,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^9.0.0":
+  version: 9.5.0
+  resolution: "commander@npm:9.5.0"
+  checksum: c7a3e27aa59e913b54a1bafd366b88650bc41d6651f0cbe258d4ff09d43d6a7394232a4dadd0bf518b3e696fdf595db1028a0d82c785b88bd61f8a440cecfade
+  languageName: node
+  linkType: hard
+
 "ep09@workspace:.":
   version: 0.0.0-use.local
   resolution: "ep09@workspace:."
   dependencies:
+    front-matter: ^4.0.2
     fs-extra: ^11.1.1
     mustache: ^4.2.0
+    showdown: ^2.1.0
     static-server: ^2.2.1
   languageName: unknown
   linkType: soft
@@ -56,10 +74,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esprima@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "esprima@npm:4.0.1"
+  bin:
+    esparse: ./bin/esparse.js
+    esvalidate: ./bin/esvalidate.js
+  checksum: b45bc805a613dbea2835278c306b91aff6173c8d034223fa81498c77dcbce3b2931bf6006db816f62eacd9fd4ea975dfd85a5b7f3c6402cfd050d4ca3c13a628
+  languageName: node
+  linkType: hard
+
 "file-size@npm:0.0.5":
   version: 0.0.5
   resolution: "file-size@npm:0.0.5"
   checksum: 404ab62bac816c4b903fdeee0ab677722d14f99641d7b7188938bd7d595fe4634181cb6681ad8de6dd4f9e1087f63730d5447e4e7589497095b28078cbc91700
+  languageName: node
+  linkType: hard
+
+"front-matter@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "front-matter@npm:4.0.2"
+  dependencies:
+    js-yaml: ^3.13.1
+  checksum: a5b4c36d75a820301ebf31db0f677332d189c4561903ab6853eaa0504b43634f98557dbf87752e09043dbd2c9dcc14b4bcf9151cb319c8ad7e26edb203c0cd23
   languageName: node
   linkType: hard
 
@@ -96,6 +133,18 @@ __metadata:
   version: 1.1.0
   resolution: "is-wsl@npm:1.1.0"
   checksum: ea157d232351e68c92bd62fc541771096942fe72f69dff452dd26dcc31466258c570a3b04b8cda2e01cd2968255b02951b8670d08ea4ed76d6b1a646061ac4fe
+  languageName: node
+  linkType: hard
+
+"js-yaml@npm:^3.13.1":
+  version: 3.14.1
+  resolution: "js-yaml@npm:3.14.1"
+  dependencies:
+    argparse: ^1.0.7
+    esprima: ^4.0.0
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: bef146085f472d44dee30ec34e5cf36bf89164f5d585435a3d3da89e52622dff0b188a580e4ad091c3341889e14cb88cac6e4deb16dc5b1e9623bb0601fc255c
   languageName: node
   linkType: hard
 
@@ -136,6 +185,24 @@ __metadata:
   dependencies:
     is-wsl: ^1.1.0
   checksum: 35b677b5a1fd6c8cb1996b0607671ba79f7ce9fa029217d54eafaf6bee13eb7e700691c6a415009140fd02a435fffdfd143875f3b233b60f3f9d631c6f6b81a0
+  languageName: node
+  linkType: hard
+
+"showdown@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "showdown@npm:2.1.0"
+  dependencies:
+    commander: ^9.0.0
+  bin:
+    showdown: bin/showdown.js
+  checksum: 9e33607612c4465f9ef39de356e2cee512e248eb71d4725e1d4353cf3ab4bbe89a94601ce6bfbd8245000633693c8b90e7d85a9613dfeba7704a7422cee78282
+  languageName: node
+  linkType: hard
+
+"sprintf-js@npm:~1.0.2":
+  version: 1.0.3
+  resolution: "sprintf-js@npm:1.0.3"
+  checksum: 19d79aec211f09b99ec3099b5b2ae2f6e9cdefe50bc91ac4c69144b6d3928a640bb6ae5b3def70c2e85a2c3d9f5ec2719921e3a59d3ca3ef4b2fd1a4656a0df3
   languageName: node
   linkType: hard
 
