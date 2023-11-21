@@ -1,0 +1,23 @@
+{
+  "name": "@jinhyeon-park/my-cli",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "bin": {
+    "aaa": "src/cli.js"
+  },
+  "scripts": {
+    "dev": "src/cli.js"
+  },
+  "files": [
+    "src"
+  ],
+  "author": "rondido",
+  "license": "MIT",
+  "devDependencies": {
+    "commander": "^11.1.0"
+  },
+  "dependencies": {
+    "open": "^9.1.0"
+  }
+}
